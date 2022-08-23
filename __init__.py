@@ -6,21 +6,6 @@ import numpy as np
 from torchvision import transforms
 import torch
 import io
-
-
-#TODO ADD Python inference script
-PATH = r"./infer/acd_123_34.jpg"
-urla = "https://drive.google.com/uc?id=1XXPduWRnUY582hgfiSddQ2wiz5KR-a0j"
-#model_path = r"./model/final_model.ckpt"
-if not os.path.exists("model.pt"):
-    gdown.download(urla, 'model.pt', quiet = False)
-#_download_url_to_file(urla, 'final_model.ckpt', None, True)
-
-# model = PretrainedWindModel.load_from_checkpoint('final_model.ckpt')
-# pred = predict_image(sample_image, model)
-# st.write(f"Your predicted wind speed is {str(pred)} kts")
-
-#  upload a file in streamlit
 st.header("Cyclone Intensity Detection Using IR Images")
 inp = st.file_uploader("Upload The Cyclone Satellite Image", type=["jpg", "png"])
 if inp is not None:
@@ -32,8 +17,6 @@ if inp is not None:
             [
                 transforms.CenterCrop(128),
                 transforms.ToTensor(),
-                # All models expect the same normalization mean & std
-                # https://pytorch.org/docs/stable/torchvision/models.html
                 transforms.Normalize(
                     mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)
                 ),
